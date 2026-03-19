@@ -108,6 +108,7 @@ It aligns with:
 input: Unstructured documents (PDF, text, images)
 output: Structured data or generated response
 
+---
 
 ### Step 3: Constraint Identification
 
