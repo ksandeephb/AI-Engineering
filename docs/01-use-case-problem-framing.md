@@ -104,7 +104,7 @@ It aligns with:
 ---
 
 ### Step 2: Input / Output Definition
-```yaml
+
 input: Unstructured documents (PDF, text, images)
 output: Structured data or generated response
 
