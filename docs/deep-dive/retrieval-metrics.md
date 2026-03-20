@@ -134,6 +134,173 @@ MRR = (1 + 0.33) / 2 = 0.665
 
 ---
 
+## 📊 Discounted Cumulative Gain (DCG)
+
+### 📌 Definition
+
+DCG measures the usefulness of a document based on:
+- Its **relevance score**
+- Its **position in the ranking**
+
+Higher-ranked relevant items contribute more than lower-ranked ones.
+
+---
+
+### Formula
+
+\[
+DCG_k = \sum_{i=1}^{k} \frac{rel_i}{\log_2(i + 1)}
+\]
+
+Where:
+- \( rel_i \) = relevance score at position \( i \)
+- \( i \) = rank position
+- \( k \) = cutoff rank
+
+---
+
+### Intuition
+
+- Rank 1 → highest importance  
+- Rank 2 → slightly less  
+- Rank 10 → much less  
+
+Logarithmic discount reduces importance of lower-ranked results.
+
+---
+
+### Example
+
+```
+Query: "Diabetes markers"
+
+Results:
+Rank 1 → Relevant (rel = 3)
+Rank 2 → Relevant (rel = 2)
+Rank 3 → Not relevant (rel = 0)
+```
+
+---
+
+### DCG Calculation
+
+```
+DCG =
+3 / log2(1+1) +
+2 / log2(2+1) +
+0 / log2(3+1)
+
+= 3/1 + 2/1.58 + 0
+≈ 3 + 1.26
+≈ 4.26
+```
+
+---
+
+## 📈 Ideal DCG (IDCG)
+
+### 📌 Definition
+
+IDCG is the **maximum possible DCG** for a perfect ranking.
+
+---
+
+### Example (Perfect Order)
+
+```
+Rank 1 → rel = 3
+Rank 2 → rel = 2
+Rank 3 → rel = 0
+```
+
+---
+
+```
+IDCG ≈ 4.26
+```
+
+---
+
+## 📊 Normalized Discounted Cumulative Gain (NDCG)
+
+### 📌 Definition
+
+NDCG normalizes DCG by dividing by the ideal DCG.
+
+---
+
+### Formula
+
+\[
+NDCG_k = \frac{DCG_k}{IDCG_k}
+\]
+
+---
+
+### Range
+
+- 0 → worst ranking  
+- 1 → perfect ranking  
+
+---
+
+### Example
+
+```
+DCG = 3.5
+IDCG = 4.26
+
+NDCG = 3.5 / 4.26 ≈ 0.82
+```
+
+---
+
+### Intuition
+
+- Measures **ranking quality**
+- Rewards correct ordering
+- Penalizes relevant results appearing lower
+
+---
+
+## 🎯 When to Use NDCG
+
+- RAG systems (most important)
+- Search engines
+- Recommendation systems
+- When multiple relevant results exist
+
+---
+
+## ⚖️ Why NDCG is Powerful
+
+| Feature | Benefit |
+|--------|--------|
+| Rank-aware | Considers position |
+| Multi-relevance | Handles graded relevance |
+| Normalized | Comparable across queries |
+
+---
+
+## 🚨 Limitations
+
+- Requires relevance scoring (not binary)
+- Slightly complex to compute
+- Depends on quality of ground truth labels
+
+---
+
+## 💡 Key Insight
+
+> NDCG is the most reliable metric for evaluating retrieval quality when multiple relevant documents exist.
+
+---
+
+## 📚 References
+
+- https://www.geeksforgeeks.org/machine-learning/normalized-discounted-cumulative-gain-multilabel-ranking-metrics-ml/  
+- https://www.evidentlyai.com/ranking-metrics/ndcg-metric  
+
 ## 📊 Precision@K
 
 ### 📌 Definition
