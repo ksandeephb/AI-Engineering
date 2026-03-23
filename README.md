@@ -1,6 +1,6 @@
-# GenAI Architect Playbook
+# AI Architect Playbook
 
-A comprehensive, vendor-neutral guide for preparing for **Generative AI Architect interviews**.
+A comprehensive, vendor-neutral guide for preparing for **AI Architect interviews**.
 
 ## 📚 Coverage
 - Use Case & Problem Framing
