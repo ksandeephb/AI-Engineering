@@ -1,3 +1,216 @@
+## 🎲 Sampling in LLMs
+
+### 📌 Why Sampling Matters
+
+LLMs generate text probabilistically by selecting the next token from a distribution of possible tokens.
+
+Sampling controls:
+- Creativity
+- Diversity
+- Determinism
+
+---
+
+## 🌡️ Temperature
+
+### 📌 Definition
+
+Temperature controls randomness in output.
+
+---
+
+### Behavior
+
+| Temperature | Effect |
+|------------|-------|
+| 0.0 | Deterministic (same output every time) |
+| 0.3–0.5 | Focused and factual |
+| 0.7–1.0 | Creative and diverse |
+| >1.0 | Very random (often incoherent) |
+
+---
+
+### Example
+
+```
+Prompt: "The glucose level is"
+
+Temperature = 0.2 → "high"
+Temperature = 0.9 → "elevated / abnormal / dangerously high"
+```
+
+---
+
+## 🔢 Top-K Sampling
+
+### 📌 Definition
+
+Top-K sampling restricts the model to choose from the top K most probable tokens.
+
+---
+
+### Example
+
+```
+Top-K = 3
+
+Possible tokens:
+1. high (0.4)
+2. normal (0.3)
+3. elevated (0.2)
+4. random (0.1)
+
+Model selects from top 3 only
+```
+
+---
+
+### Effect
+
+- Reduces unlikely outputs  
+- Improves coherence  
+
+---
+
+## 🎯 Top-P (Nucleus Sampling)
+
+### 📌 Definition
+
+Top-P selects tokens whose cumulative probability ≥ P.
+
+---
+
+### Example
+
+```
+Top-P = 0.9
+
+Tokens:
+high (0.4)
+normal (0.3)
+elevated (0.2)
+random (0.1)
+
+Selected until cumulative ≥ 0.9 → first 3 tokens
+```
+
+---
+
+### Effect
+
+- More adaptive than Top-K  
+- Balances diversity and quality  
+
+---
+
+## ⚖️ Determinism vs Randomness
+
+### Deterministic Output
+
+- Temperature = 0  
+- Same input → same output  
+- Best for:
+  - Extraction
+  - Classification
+  - Structured outputs  
+
+---
+
+### Random Output
+
+- Higher temperature  
+- Different outputs each time  
+- Best for:
+  - Content generation
+  - Creative writing  
+
+---
+
+## 🧠 Hallucination in LLMs
+
+### 📌 Definition
+
+Hallucination is when an LLM generates:
+- Incorrect  
+- Fabricated  
+- Unsupported information  
+
+---
+
+### Why Hallucination Happens
+
+1. Training limitations  
+2. Lack of grounding  
+3. Over-generalization  
+4. Probabilistic nature  
+
+---
+
+### Example
+
+```
+Prompt:
+"What is the normal glucose level?"
+
+Output:
+"Normal glucose is 50 mg/dL" ❌ (Incorrect)
+```
+
+---
+
+## 🚨 Types of Hallucination
+
+### 1. Factual Errors
+- Incorrect information  
+
+---
+
+### 2. Fabricated Data
+- Made-up references or numbers  
+
+---
+
+### 3. Logical Errors
+- Incorrect reasoning  
+
+---
+
+## 🛠️ Mitigation Strategies
+
+- Use RAG (grounding)  
+- Provide clear prompts  
+- Reduce temperature  
+- Add validation layers  
+- Use structured outputs  
+
+---
+
+## ⚙️ Real-world Implications
+
+### 1. Extraction Systems
+- Use low temperature (0–0.3)  
+- Ensure deterministic output  
+
+---
+
+### 2. Chatbots
+- Balance temperature (0.5–0.7)  
+
+---
+
+### 3. Creative Applications
+- Use higher temperature (0.7–1.0)  
+
+---
+
+## 💡 Key Insight
+
+> LLMs are probabilistic systems. Sampling controls behavior, and hallucination is an inherent limitation that must be mitigated through system design.
+
+---
+
+## 📚 References
+
 # 🧠 LLM Fundamentals
 
 ## 📌 Overview
@@ -106,528 +319,224 @@ Example:
 ## 💡 Key Insight
 
 > LLMs do not understand language like humans — they predict the most probable next token based on context.
+- https://platform.openai.com/docs/guides/text-generation  
+- https://www.promptingguide.ai/  
+- https://arxiv.org/abs/1706.03762
 
-## ⚙️ Attention Mechanism
 
-### 📌 What is Attention?
+## 🎲 Sampling in LLMs
 
-Attention allows the model to focus on the most relevant parts of the input when generating output.
+### 📌 Why Sampling Matters
 
----
+LLMs generate text probabilistically by selecting the next token from a distribution of possible tokens.
 
-### Why Attention is Needed
-
-In long sentences, not all words are equally important.
-
-Example:
-
-```
-"The patient who was diagnosed last year with diabetes has high glucose levels."
-```
-
-To predict "high", the model should focus on:
-- "patient"
-- "diabetes"
-- "glucose"
+Sampling controls:
+- Creativity
+- Diversity
+- Determinism
 
 ---
 
-### Self-Attention (Core Idea)
-
-Each token:
-- Looks at every other token
-- Assigns importance (weights)
-- Combines information accordingly
-
----
-
-### Simplified View
-
-```
-Input Tokens → Compare with each other → Assign weights → Generate output
-```
-
----
-
-### Key Benefit
-
-- Captures long-range dependencies  
-- Works better than RNNs/LSTMs  
-
----
-
-📚 Reference:
-- https://arxiv.org/abs/1706.03762  
-
----
-
-## 📏 Context Window
+## 🌡️ Temperature
 
 ### 📌 Definition
 
-The context window is the maximum number of tokens an LLM can process at once.
+Temperature controls randomness in output.
+
+---
+
+### Behavior
+
+| Temperature | Effect |
+|------------|-------|
+| 0.0 | Deterministic (same output every time) |
+| 0.3–0.5 | Focused and factual |
+| 0.7–1.0 | Creative and diverse |
+| >1.0 | Very random (often incoherent) |
 
 ---
 
 ### Example
 
 ```
-Model Limit: 8K tokens
+Prompt: "The glucose level is"
 
-Input + Output must fit within 8K tokens
+Temperature = 0.2 → "high"
+Temperature = 0.9 → "elevated / abnormal / dangerously high"
 ```
 
 ---
 
-### Why It Matters
-
-- Limits how much information you can pass  
-- Affects RAG system design  
-- Impacts cost and latency  
-
----
-
-### Problems
-
-#### 1. Context Overflow
-
-```
-Input too large → truncated → information loss
-```
-
----
-
-#### 2. Lost-in-the-Middle Problem
-
-- Important information in the middle gets ignored  
-
----
-
-### Solutions
-
-- Chunking  
-- Retrieval (RAG)  
-- Summarization  
-- Sliding window  
-
----
-
-## 🧾 Prompt Structure
-
-### 📌 What is a Prompt?
-
-A prompt is the input given to an LLM to guide its output.
-
----
-
-### Components of a Prompt
-
-#### 1. System Prompt
-- Defines behavior and rules  
-
-Example:
-```
-"You are a medical assistant. Provide accurate and concise answers."
-```
-
----
-
-#### 2. User Prompt
-- Actual query  
-
-Example:
-```
-"What is a normal glucose level?"
-```
-
----
-
-#### 3. Assistant Response
-- Model output  
-
----
-
-### Prompt Example
-
-```
-System:
-"You are a medical expert."
-
-User:
-"Explain HbA1c levels."
-
-Assistant:
-"HbA1c measures average blood sugar levels over time..."
-```
-
----
-
-## 🎯 Prompt Types
-
-### Zero-shot Prompting
-- No examples provided  
-
----
-
-### Few-shot Prompting
-- Provide examples  
-
----
-
-### Instruction-based Prompting
-- Explicit instructions  
-
----
-
-## 💡 Key Insight
-
-> Attention enables understanding of relationships, context window limits memory, and prompts control behavior.
-
-## ⚙️ Attention Mechanism
-
-### 📌 What is Attention?
-
-Attention allows the model to focus on the most relevant parts of the input when generating output.
-
----
-
-### Why Attention is Needed
-
-In long sentences, not all words are equally important.
-
-Example:
-
-```
-"The patient who was diagnosed last year with diabetes has high glucose levels."
-```
-
-To predict "high", the model should focus on:
-- "patient"
-- "diabetes"
-- "glucose"
-
----
-
-### Self-Attention (Core Idea)
-
-Each token:
-- Looks at every other token
-- Assigns importance (weights)
-- Combines information accordingly
-
----
-
-### Simplified View
-
-```
-Input Tokens → Compare with each other → Assign weights → Generate output
-```
-
----
-
-### Key Benefit
-
-- Captures long-range dependencies  
-- Works better than RNNs/LSTMs  
-
----
-
-📚 Reference:
-- https://arxiv.org/abs/1706.03762  
-
----
-
-## 📏 Context Window
+## 🔢 Top-K Sampling
 
 ### 📌 Definition
 
-The context window is the maximum number of tokens an LLM can process at once.
+Top-K sampling restricts the model to choose from the top K most probable tokens.
 
 ---
 
 ### Example
 
 ```
-Model Limit: 8K tokens
+Top-K = 3
 
-Input + Output must fit within 8K tokens
+Possible tokens:
+1. high (0.4)
+2. normal (0.3)
+3. elevated (0.2)
+4. random (0.1)
+
+Model selects from top 3 only
 ```
 
 ---
 
-### Why It Matters
+### Effect
 
-- Limits how much information you can pass  
-- Affects RAG system design  
-- Impacts cost and latency  
-
----
-
-### Problems
-
-#### 1. Context Overflow
-
-```
-Input too large → truncated → information loss
-```
+- Reduces unlikely outputs  
+- Improves coherence  
 
 ---
 
-#### 2. Lost-in-the-Middle Problem
-
-- Important information in the middle gets ignored  
-
----
-
-### Solutions
-
-- Chunking  
-- Retrieval (RAG)  
-- Summarization  
-- Sliding window  
-
----
-
-## 🧾 Prompt Structure
-
-### 📌 What is a Prompt?
-
-A prompt is the input given to an LLM to guide its output.
-
----
-
-### Components of a Prompt
-
-#### 1. System Prompt
-- Defines behavior and rules  
-
-Example:
-```
-"You are a medical assistant. Provide accurate and concise answers."
-```
-
----
-
-#### 2. User Prompt
-- Actual query  
-
-Example:
-```
-"What is a normal glucose level?"
-```
-
----
-
-#### 3. Assistant Response
-- Model output  
-
----
-
-### Prompt Example
-
-```
-System:
-"You are a medical expert."
-
-User:
-"Explain HbA1c levels."
-
-Assistant:
-"HbA1c measures average blood sugar levels over time..."
-```
-
----
-
-## 🎯 Prompt Types
-
-### Zero-shot Prompting
-- No examples provided  
-
----
-
-### Few-shot Prompting
-- Provide examples  
-
-## ⚙️ Attention Mechanism
-
-### 📌 What is Attention?
-
-Attention allows the model to focus on the most relevant parts of the input when generating output.
-
----
-
-### Why Attention is Needed
-
-In long sentences, not all words are equally important.
-
-Example:
-
-```
-"The patient who was diagnosed last year with diabetes has high glucose levels."
-```
-
-To predict "high", the model should focus on:
-- "patient"
-- "diabetes"
-- "glucose"
-
----
-
-### Self-Attention (Core Idea)
-
-Each token:
-- Looks at every other token
-- Assigns importance (weights)
-- Combines information accordingly
-
----
-
-### Simplified View
-
-```
-Input Tokens → Compare with each other → Assign weights → Generate output
-```
-
----
-
-### Key Benefit
-
-- Captures long-range dependencies  
-- Works better than RNNs/LSTMs  
-
----
-
-📚 Reference:
-- https://arxiv.org/abs/1706.03762  
-
----
-
-## 📏 Context Window
+## 🎯 Top-P (Nucleus Sampling)
 
 ### 📌 Definition
 
-The context window is the maximum number of tokens an LLM can process at once.
+Top-P selects tokens whose cumulative probability ≥ P.
 
 ---
 
 ### Example
 
 ```
-Model Limit: 8K tokens
+Top-P = 0.9
 
-Input + Output must fit within 8K tokens
+Tokens:
+high (0.4)
+normal (0.3)
+elevated (0.2)
+random (0.1)
+
+Selected until cumulative ≥ 0.9 → first 3 tokens
 ```
 
 ---
 
-### Why It Matters
+### Effect
 
-- Limits how much information you can pass  
-- Affects RAG system design  
-- Impacts cost and latency  
+- More adaptive than Top-K  
+- Balances diversity and quality  
 
 ---
 
-### Problems
+## ⚖️ Determinism vs Randomness
 
-#### 1. Context Overflow
+### Deterministic Output
+
+- Temperature = 0  
+- Same input → same output  
+- Best for:
+  - Extraction
+  - Classification
+  - Structured outputs  
+
+---
+
+### Random Output
+
+- Higher temperature  
+- Different outputs each time  
+- Best for:
+  - Content generation
+  - Creative writing  
+
+---
+
+## 🧠 Hallucination in LLMs
+
+### 📌 Definition
+
+Hallucination is when an LLM generates:
+- Incorrect  
+- Fabricated  
+- Unsupported information  
+
+---
+
+### Why Hallucination Happens
+
+1. Training limitations  
+2. Lack of grounding  
+3. Over-generalization  
+4. Probabilistic nature  
+
+---
+
+### Example
 
 ```
-Input too large → truncated → information loss
-```
+Prompt:
+"What is the normal glucose level?"
 
----
-
-#### 2. Lost-in-the-Middle Problem
-
-- Important information in the middle gets ignored  
-
----
-
-### Solutions
-
-- Chunking  
-- Retrieval (RAG)  
-- Summarization  
-- Sliding window  
-
----
-
-## 🧾 Prompt Structure
-
-### 📌 What is a Prompt?
-
-A prompt is the input given to an LLM to guide its output.
-
----
-
-### Components of a Prompt
-
-#### 1. System Prompt
-- Defines behavior and rules  
-
-Example:
-```
-"You are a medical assistant. Provide accurate and concise answers."
-```
-
----
-
-#### 2. User Prompt
-- Actual query  
-
-Example:
-```
-"What is a normal glucose level?"
-```
-
----
-
-#### 3. Assistant Response
-- Model output  
-
----
-
-### Prompt Example
-
-```
-System:
-"You are a medical expert."
-
-User:
-"Explain HbA1c levels."
-
-Assistant:
-"HbA1c measures average blood sugar levels over time..."
+Output:
+"Normal glucose is 50 mg/dL" ❌ (Incorrect)
 ```
 
 ---
 
-## 🎯 Prompt Types
+## 🚨 Types of Hallucination
 
-### Zero-shot Prompting
-- No examples provided  
-
----
-
-### Few-shot Prompting
-- Provide examples  
+### 1. Factual Errors
+- Incorrect information  
 
 ---
 
-### Instruction-based Prompting
-- Explicit instructions  
+### 2. Fabricated Data
+- Made-up references or numbers  
+
+---
+
+### 3. Logical Errors
+- Incorrect reasoning  
+
+---
+
+## 🛠️ Mitigation Strategies
+
+- Use RAG (grounding)  
+- Provide clear prompts  
+- Reduce temperature  
+- Add validation layers  
+- Use structured outputs  
+
+---
+
+## ⚙️ Real-world Implications
+
+### 1. Extraction Systems
+- Use low temperature (0–0.3)  
+- Ensure deterministic output  
+
+---
+
+### 2. Chatbots
+- Balance temperature (0.5–0.7)  
+
+---
+
+### 3. Creative Applications
+- Use higher temperature (0.7–1.0)  
 
 ---
 
 ## 💡 Key Insight
 
-> Attention enables understanding of relationships, context window limits memory, and prompts control behavior.
-### Instruction-based Prompting
-- Explicit instructions  
+> LLMs are probabilistic systems. Sampling controls behavior, and hallucination is an inherent limitation that must be mitigated through system design.
 
 ---
 
-## 💡 Key Insight
+## 📚 References
 
-> Attention enables understanding of relationships, context window limits memory, and prompts control behavior.
+- https://platform.openai.com/docs/guides/text-generation  
+- https://www.promptingguide.ai/  
+- https://arxiv.org/abs/1706.03762  
