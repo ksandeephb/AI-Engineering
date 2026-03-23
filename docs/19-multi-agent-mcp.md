@@ -105,3 +105,181 @@ Agent A → Agent B → Agent C → Final Answer
 
 > Multi-agent systems decompose complex problems into smaller, specialized tasks handled by different agents.
 
+## 🧩 Multi-Agent Design Patterns
+
+---
+
+## 1. Planner–Executor Pattern (MOST IMPORTANT)
+
+### 📌 Idea
+
+- Planner → breaks task into steps  
+- Executor → performs actions  
+
+---
+
+### Flow
+
+```
+User Query
+  → Planner Agent
+  → Step-by-step plan
+  → Executor Agent executes each step
+  → Final Answer
+```
+
+---
+
+### Example
+
+```
+Query: "Analyze lab report"
+
+Planner:
+1. Extract data  
+2. Analyze values  
+3. Generate summary  
+
+Executor:
+→ Executes each step
+```
+
+---
+
+### Code Example (Simplified)
+
+```python
+def planner(query):
+    return ["extract", "analyze", "summarize"]
+
+def executor(step, data):
+    if step == "extract":
+        return extract_data(data)
+    elif step == "analyze":
+        return analyze_data(data)
+    elif step == "summarize":
+        return summarize(data)
+
+steps = planner("Analyze report")
+
+data = input_data
+
+for step in steps:
+    data = executor(step, data)
+
+print(data)
+```
+
+---
+
+## 2. Reviewer / Critic Pattern
+
+### 📌 Idea
+
+- One agent generates output  
+- Another validates it  
+
+---
+
+### Flow
+
+```
+Generator → Reviewer → Final Output
+```
+
+---
+
+### Example
+
+```python
+answer = generator_agent(query)
+
+review = reviewer_agent(f"Check correctness:\n{answer}")
+
+if "incorrect" in review:
+    answer = generator_agent("Fix: " + answer)
+```
+
+---
+
+## 3. Parallel Agents Pattern
+
+### 📌 Idea
+
+Multiple agents work simultaneously.
+
+---
+
+### Example
+
+```python
+import asyncio
+
+async def run_agents():
+    task1 = agent1(query)
+    task2 = agent2(query)
+
+    results = await asyncio.gather(task1, task2)
+    return results
+```
+
+---
+
+## 4. Debate Pattern (Advanced)
+
+### 📌 Idea
+
+Multiple agents argue and refine answers.
+
+---
+
+### Flow
+
+```
+Agent A → Answer  
+Agent B → Critique  
+Agent A → Refine  
+```
+
+---
+
+## 🧰 Frameworks
+
+---
+
+### LangGraph (Recommended)
+
+- Stateful workflows  
+- Multi-agent orchestration  
+
+---
+
+### LangChain
+
+- Simpler agent flows  
+
+---
+
+## 🧠 Key Design Considerations
+
+- Task decomposition  
+- Agent communication  
+- State management  
+- Error handling  
+
+---
+
+## ⚖️ Trade-offs
+
+| Pattern | Benefit | Cost |
+|--------|--------|------|
+| Planner-Executor | Structured | Complexity |
+| Reviewer | Accuracy | Latency |
+| Parallel | Speed | Coordination |
+| Debate | High quality | High cost |
+
+---
+
+## 💡 Key Insight
+
+> Multi-agent systems improve performance by specialization, but increase complexity — use them only when necessary.
