@@ -129,4 +129,6 @@ Give a star ⭐ and share!
 **Sandeep Kumar**<br>
 AI Architect & Engineering Manager<br>
 📧 ksandeep.srm@gmail.com
+https://www.linkedin.com/in/sandeep-kumar-23b02445/
+
 
