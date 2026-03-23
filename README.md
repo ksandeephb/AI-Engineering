@@ -2,6 +2,12 @@
 
 A comprehensive, production-ready guide to designing, building, and scaling Generative AI systems.
 
+## 👤 Author
+**Sandeep Kumar**<br>
+AI Architect & Engineering Manager<br>
+📧 ksandeep.srm@gmail.com<br>
+https://www.linkedin.com/in/sandeep-kumar-23b02445/
+
 ---
 
 ## 🎯 Who is this for?
@@ -128,7 +134,7 @@ Give a star ⭐ and share!
 
 **Sandeep Kumar**<br>
 AI Architect & Engineering Manager<br>
-📧 ksandeep.srm@gmail.com
+📧 ksandeep.srm@gmail.com<br>
 https://www.linkedin.com/in/sandeep-kumar-23b02445/
 
 
