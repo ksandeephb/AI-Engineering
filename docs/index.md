@@ -1,6 +1,6 @@
 # 🧠 AI Architect Playbook
 
-Welcome to the **AI Interview Preparation Guide**.
+Welcome to the **AI Architect Playbook **.
 
 This repository is designed to:
 - Provide structured knowledge across all GenAI domains
