@@ -121,3 +121,11 @@ After completing this:
 ## ⭐ If this helps you
 
 Give a star ⭐ and share!
+
+---
+
+## 👤 Author
+
+**Sandeep Kumar**
+AI Architect & Engineering Manager
+📧 [ksandeep.srm@gmail.com](mailto:ksandeep.srm@gmail.com)
