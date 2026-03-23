@@ -289,3 +289,199 @@ print(response)
 
 > LoRA + quantization is the most practical way to fine-tune LLMs in real-world systems.
 
+## 📊 Evaluating Fine-Tuned Models
+
+### 📌 Why Evaluation is Critical
+
+Fine-tuning can:
+- Improve performance  
+- Or degrade general capability  
+
+---
+
+### Evaluation Metrics
+
+---
+
+#### 1. Task Accuracy
+
+- Compare output with ground truth  
+
+---
+
+#### 2. Format Consistency
+
+- Check structured output (JSON correctness)  
+
+---
+
+#### 3. Generalization
+
+- Test on unseen data  
+
+---
+
+### Example
+
+```python
+def evaluate(model, dataset):
+    correct = 0
+
+    for sample in dataset:
+        output = model(sample["input"])
+
+        if output == sample["output"]:
+            correct += 1
+
+    return correct / len(dataset)
+```
+
+---
+
+## 🚨 When Fine-Tuning Fails
+
+---
+
+### 1. Overfitting
+
+- Model memorizes training data  
+- Poor performance on new data  
+
+---
+
+### 2. Data Quality Issues
+
+- Noisy or inconsistent dataset  
+
+---
+
+### 3. Insufficient Data
+
+- Too few examples  
+
+---
+
+### 4. Wrong Use Case
+
+- Dynamic knowledge → should use RAG  
+
+---
+
+## ☁️ Azure OpenAI Fine-Tuning
+
+---
+
+### 📌 When to Use
+
+- Enterprise scenarios  
+- Managed infrastructure  
+- Compliance requirements  
+
+---
+
+### Workflow
+
+```
+Prepare dataset → Upload → Train → Deploy → Use endpoint
+```
+
+---
+
+### Example (Conceptual)
+
+```python
+from openai import AzureOpenAI
+
+client = AzureOpenAI(
+    api_key="API_KEY",
+    azure_endpoint="ENDPOINT",
+    api_version="2024-02-01"
+)
+
+# Pseudo-code (Azure handles training internally)
+response = client.fine_tuning.jobs.create(
+    training_file="file-id",
+    model="gpt-4"
+)
+```
+
+---
+
+📚 Reference  
+https://learn.microsoft.com/en-us/azure/ai-services/openai/how-to/fine-tuning  
+
+---
+
+## 🏭 Production Considerations
+
+---
+
+### 1. Versioning
+
+- Maintain model versions  
+- Rollback capability  
+
+---
+
+### 2. Monitoring
+
+- Track performance  
+- Detect drift  
+
+---
+
+### 3. Cost
+
+- Training cost  
+- Inference cost  
+
+---
+
+### 4. Deployment Strategy
+
+- A/B testing  
+- Gradual rollout  
+
+---
+
+## ⚖️ Fine-Tuning vs RAG (Revisited)
+
+| Factor | Fine-Tuning | RAG |
+|-------|------------|-----|
+| Knowledge updates | Hard | Easy |
+| Cost | High upfront | Pay per query |
+| Consistency | High | Medium |
+| Flexibility | Low | High |
+
+---
+
+## 🧠 Best Practice Strategy
+
+```
+Start → Prompting
+   → Add RAG
+   → Fine-tune if necessary
+```
+
+---
+
+## 🚨 Common Mistakes
+
+- Fine-tuning too early  
+- Poor dataset quality  
+- Ignoring evaluation  
+- No versioning  
+
+---
+
+## 💡 Key Insight
+
+> Fine-tuning is powerful but expensive — it should be used only when simpler approaches cannot achieve the desired performance.
+
+---
+
+## 📚 References
+
+- https://huggingface.co/docs  
+- https://learn.microsoft.com/en-us/azure/ai-services/openai/  
+- https://platform.openai.com/docs  
