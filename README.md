@@ -13,11 +13,19 @@ A comprehensive, production-ready guide to designing, building, and scaling Gene
 
 ---
 
-## 🧠 What this Repo Covers
+## 📚 Prerequisites (Foundations)
+
+* [Transformer Architecture & Attention](docs/prerequisites/transformer-architecture.md)
+* [ML, DL & NLP Foundations](docs/prerequisites/ml-dl-nlp-foundations.md)
+* [Python Cheat Sheet (ML/GenAI)](docs/prerequisites/python-cheatsheet.md)
 
 ---
 
-### 🧩 Core Foundations
+## 🧠 Core Topics
+
+---
+
+### 🧩 Foundations
 
 * [Use Case & Problem Framing](docs/01-use-case-problem-framing.md)
 * [Data & Context Handling](docs/02-data-context-handling.md)
@@ -34,7 +42,7 @@ A comprehensive, production-ready guide to designing, building, and scaling Gene
 
 ---
 
-### 🤖 Advanced Systems
+### 🤖 Agents & Advanced Systems
 
 * [Agents](docs/07-agents.md)
 * [Multi-Agent Systems & MCP](docs/19-multi-agent-mcp.md)
@@ -42,7 +50,7 @@ A comprehensive, production-ready guide to designing, building, and scaling Gene
 
 ---
 
-### 🏗️ Production System Design
+### 🏗️ System Design & Production
 
 * [System Design](docs/08-system-design.md)
 * [Deployment (Azure)](docs/10-deployment.md)
@@ -51,7 +59,7 @@ A comprehensive, production-ready guide to designing, building, and scaling Gene
 
 ---
 
-### 📊 Optimization & Evaluation
+### 📊 Evaluation & Optimization
 
 * [Evaluation](docs/09-evaluation.md)
 * [Cost Optimization](docs/13-cost-optimization.md)
@@ -78,15 +86,35 @@ A comprehensive, production-ready guide to designing, building, and scaling Gene
 
 ## 🚀 How to Use
 
-1. Start with [Use Case & Problem Framing](docs/01-use-case-problem-framing.md)
-2. Follow the sequence
-3. Explore examples
+1. Start with [Prerequisites](docs/prerequisites/)
+2. Move to Core Topics
+3. Explore Advanced Topics
+4. Refer diagrams for architecture understanding
 
 ---
 
 ## 🧠 Key Philosophy
 
 Start simple → Add RAG → Add agents → Optimize → Scale
+
+---
+
+## ⚡ Highlights
+
+* End-to-end GenAI system design
+* Azure + OpenAI + Open-source coverage
+* Production-ready patterns
+* Interview-focused explanations
+
+---
+
+## 🎯 Outcome
+
+After completing this:
+
+* ✅ Design production-grade GenAI systems
+* ✅ Crack GenAI Architect interviews
+* ✅ Build scalable AI applications
 
 ---
 
