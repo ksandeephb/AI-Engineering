@@ -115,14 +115,6 @@ Neural networks with multiple layers.
 
 ---
 
-# 💡 Interview Tips
-
-- Explain concepts simply  
-- Use examples  
-- Focus on intuition  
-
----
-
 ## 🧠 Final Insight
 
 > ML builds predictive models, DL builds representation learning systems, and NLP applies these to language.
