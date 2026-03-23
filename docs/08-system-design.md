@@ -302,3 +302,216 @@ Query → Cache → Response
 ## 💡 Key Insight
 
 > Production systems are optimized not just for accuracy, but for scalability, latency, and cost.
+
+## 🛡️ Reliability & Fault Tolerance
+
+### 📌 Why It Matters
+
+GenAI systems depend on:
+- External APIs  
+- LLM services  
+- Retrieval systems  
+
+Failures are inevitable.
+
+---
+
+### Strategies
+
+#### 1. Retry Mechanisms
+
+- Retry failed API calls  
+- Exponential backoff  
+
+---
+
+#### 2. Fallback Models
+
+```
+Primary Model → Fallback Model → Default Response
+```
+
+---
+
+#### 3. Graceful Degradation
+
+- Return partial results  
+- Inform user of limitations  
+
+---
+
+#### 4. Circuit Breaker Pattern
+
+- Stop repeated failing calls  
+- Prevent system overload  
+
+---
+
+## 📊 Monitoring & Observability
+
+### 📌 What to Monitor
+
+#### 1. System Metrics
+- Latency  
+- Throughput  
+- Error rates  
+
+---
+
+#### 2. Model Metrics
+- Token usage  
+- Cost per request  
+- Response time  
+
+---
+
+#### 3. Quality Metrics
+- Accuracy  
+- Hallucination rate  
+- User feedback  
+
+---
+
+### Tools
+
+- Prometheus  
+- Grafana  
+- OpenTelemetry  
+
+---
+
+### Logging
+
+- Input/output logs  
+- Tool usage logs  
+- Error logs  
+
+---
+
+## 🔐 Security & Compliance
+
+### 📌 Key Concerns
+
+- Data privacy  
+- Unauthorized access  
+- Sensitive information leakage  
+
+---
+
+### Strategies
+
+#### 1. Access Control
+
+- Role-based access (RBAC)  
+- Authentication  
+
+---
+
+#### 2. Data Protection
+
+- Encryption (in transit + at rest)  
+- Secure storage  
+
+---
+
+#### 3. PII Handling
+
+- Mask sensitive data  
+- Avoid sending PII to external APIs  
+
+---
+
+#### 4. Audit Logging
+
+- Track system usage  
+- Maintain logs for compliance  
+
+---
+
+📚 References
+
+- https://learn.microsoft.com/en-us/azure/ai-services/responsible-use-of-ai-overview  
+
+---
+
+## 🏭 Real-world Architecture Patterns
+
+---
+
+### 1. RAG-based Systems
+
+```
+User → Retrieval → LLM → Response
+```
+
+---
+
+### 2. Agent-based Systems
+
+```
+User → Agent → Tools → LLM → Response
+```
+
+---
+
+### 3. Hybrid Systems
+
+Combine:
+- LLM  
+- Retrieval  
+- Rule-based logic  
+- Traditional ML  
+
+---
+
+### 4. Microservices Architecture
+
+- Separate services:
+  - API  
+  - Retrieval  
+  - LLM  
+  - Monitoring  
+
+---
+
+## ⚖️ Trade-offs
+
+| Factor | Trade-off |
+|-------|----------|
+| Reliability | Latency |
+| Security | Usability |
+| Monitoring | Overhead |
+| Fault tolerance | Complexity |
+
+---
+
+## 🚨 Common Mistakes
+
+- No fallback strategy  
+- No monitoring  
+- Ignoring security  
+- Over-reliance on LLM  
+- No logging  
+
+---
+
+## 🧠 Design Principles
+
+- Design for failure  
+- Monitor everything  
+- Secure data by default  
+- Optimize continuously  
+
+---
+
+## 💡 Key Insight
+
+> A production-ready GenAI system is not defined by its model, but by its reliability, observability, and security.
+
+---
+
+## 📚 References
+
+- https://cloud.google.com/architecture  
+- https://aws.amazon.com/architecture/  
+- https://learn.microsoft.com/en-us/azure/architecture/  
