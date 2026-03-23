@@ -128,3 +128,164 @@ Output: {"biomarker": "Glucose", "value": 180}
 
 > Start with prompting → add RAG → fine-tune only if necessary.
 
+## 🧪 Dataset Preparation
+
+### 📌 Format (Instruction Style)
+
+Fine-tuning data is usually in JSON format:
+
+---
+
+### Example
+
+```json
+[
+  {
+    "instruction": "Extract biomarker information",
+    "input": "Glucose: 180 mg/dL",
+    "output": "{\"biomarker\": \"Glucose\", \"value\": 180}"
+  }
+]
+```
+
+---
+
+### Alternative (Chat Format)
+
+```json
+{
+  "messages": [
+    {"role": "user", "content": "Glucose: 180 mg/dL"},
+    {"role": "assistant", "content": "{\"biomarker\": \"Glucose\", \"value\": 180}"}
+  ]
+}
+```
+
+---
+
+## ⚙️ Fine-Tuning with Hugging Face + LoRA
+
+---
+
+### 📌 Why LoRA?
+
+- Reduces training cost  
+- Requires less memory  
+- Faster training  
+
+---
+
+## 📦 Install Dependencies
+
+```bash
+pip install transformers datasets peft accelerate bitsandbytes
+```
+
+---
+
+## 🧠 Model Loading (4-bit Quantization + LoRA)
+
+```python
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import LoraConfig, get_peft_model
+
+model_name = "meta-llama/Llama-2-7b-hf"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    load_in_4bit=True,
+    device_map="auto"
+)
+```
+
+---
+
+## ⚙️ LoRA Configuration
+
+```python
+lora_config = LoraConfig(
+    r=8,
+    lora_alpha=16,
+    target_modules=["q_proj", "v_proj"],
+    lora_dropout=0.05,
+    bias="none",
+    task_type="CAUSAL_LM"
+)
+
+model = get_peft_model(model, lora_config)
+```
+
+---
+
+## 📊 Dataset Loading
+
+```python
+from datasets import load_dataset
+
+dataset = load_dataset("json", data_files="data.json")
+```
+
+---
+
+## 🏋️ Training Setup
+
+```python
+from transformers import TrainingArguments, Trainer
+
+training_args = TrainingArguments(
+    output_dir="./results",
+    per_device_train_batch_size=2,
+    num_train_epochs=3,
+    logging_steps=10,
+    save_steps=100
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=dataset["train"]
+)
+
+trainer.train()
+```
+
+---
+
+## 💾 Save Model
+
+```python
+model.save_pretrained("./fine-tuned-model")
+tokenizer.save_pretrained("./fine-tuned-model")
+```
+
+---
+
+## 🚀 Inference
+
+```python
+from transformers import pipeline
+
+pipe = pipeline("text-generation", model="./fine-tuned-model")
+
+response = pipe("Glucose: 180 mg/dL")
+print(response)
+```
+
+---
+
+## ⚖️ Trade-offs
+
+| Factor | Trade-off |
+|-------|----------|
+| LoRA | Efficient but limited capacity |
+| Full fine-tuning | Better performance but expensive |
+| Quantization | Lower memory vs slight accuracy loss |
+
+---
+
+## 💡 Key Insight
+
+> LoRA + quantization is the most practical way to fine-tune LLMs in real-world systems.
+
