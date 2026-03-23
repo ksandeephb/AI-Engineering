@@ -1,4 +1,4 @@
-# 🐍 Python Cheat Sheet (GenAI + ML Focus)
+# 🐍 Python foundation (GenAI + ML Focus)
 
 [⬅ Back to README](../../README.md)
 
