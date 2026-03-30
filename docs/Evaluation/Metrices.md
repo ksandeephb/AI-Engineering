@@ -155,8 +155,3 @@ Dataset → Retrieval Eval → Generation Eval → LLM Judge → Dashboard
 
 ---
 
-Now it’s **100% clean markdown (copy-paste ready for GitHub)** ✅
-
----
-
-Say **“next”** → I’ll give **Translation (Part 2)** in same format.
