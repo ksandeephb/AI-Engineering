@@ -1,157 +1,179 @@
-Got it 👍 — here is clean GitHub-compatible Markdown with ZERO content outside the code block.
+# 📊 Evaluation Cheat Sheet — Overview & Core Metrics
 
-# 📘 Part 1: RAG (Retrieval-Augmented Generation) — Evaluation Metrics & Tools
+## 🧠 Introduction
 
----
+Evaluation is critical in modern AI systems such as:
 
-## 🧠 What is RAG?
+- RAG (Retrieval-Augmented Generation)
+- Summarization
+- Translation
+- Agent systems
 
-Retrieval-Augmented Generation combines:
-- Retriever (vector DB / search)
-- Generator (LLM)
-
-
-Query → Retriever → Context → LLM → Response
-
+Each system requires different evaluation strategies, but they share common foundations.
 
 ---
 
-# 📊 1. Evaluation Metrics for RAG
+# 🧩 Types of Evaluation
 
-## 🔹 Retrieval Metrics
+## 1. Retrieval Evaluation (RAG)
 
-| Metric        | Description                     | Formula / Idea                  |
-|--------------|---------------------------------|----------------------------------|
-| Precision@K  | Relevant docs in top K           | relevant@K / K                  |
-| Recall@K     | Coverage of relevant docs        | relevant@K / total relevant     |
-| MRR          | Rank of first relevant result    | 1 / rank                        |
-| nDCG         | Ranking quality                 | position-weighted relevance     |
+Measures how well relevant documents are retrieved.
 
-### ✅ Code Example (Retrieval Metrics)
+## 2. Generation Evaluation
+
+Measures quality of generated text.
+
+## 3. End-to-End Evaluation
+
+Measures full pipeline performance.
+
+## 4. Agent Evaluation
+
+Measures reasoning, tool usage, and planning.
+
+---
+
+# 📏 Core Evaluation Metrics
+
+## 🔹 Precision@K
+
+Measures how many retrieved items are relevant.
+
+```
+Precision@K = (Relevant items in top K) / K
+```
+
+### Example
 
 ```python
-def precision_at_k(relevant_docs, retrieved_docs, k):
-    retrieved_k = retrieved_docs[:k]
-    relevant = set(relevant_docs)
-    return len([doc for doc in retrieved_k if doc in relevant]) / k
-
-def recall_at_k(relevant_docs, retrieved_docs, k):
-    retrieved_k = retrieved_docs[:k]
-    relevant = set(relevant_docs)
-    return len([doc for doc in retrieved_k if doc in relevant]) / len(relevant)
-🔹 Generation Metrics
-Metric	Description
-Faithfulness	Answer grounded in context
-Relevance	Answer matches query
-Answer Correctness	Matches ground truth
-Hallucination Rate	% incorrect facts
-🔹 LLM-based Evaluation (Modern Standard)
-
-Use LLM-as-a-judge:
-
-Input: Question + Context + Answer  
-Output: Score (0–1) + reasoning
-🧪 2. RAG Evaluation Frameworks (Tools)
-🥇 Ragas
-GitHub: https://github.com/explodinggradients/ragas
-Docs: https://docs.ragas.io/
-✅ Features
-Faithfulness
-Context precision/recall
-Answer relevance
-💻 Code Example
-from ragas import evaluate
-from datasets import Dataset
-from ragas.metrics import faithfulness, answer_relevancy
-
-data = {
-    "question": ["What is AI?"],
-    "answer": ["AI is artificial intelligence"],
-    "contexts": [["AI stands for artificial intelligence"]],
-}
-
-dataset = Dataset.from_dict(data)
-
-result = evaluate(
-    dataset,
-    metrics=[faithfulness, answer_relevancy],
-)
-
-print(result)
-🥈 TruLens
-GitHub: https://github.com/truera/trulens
-Docs: https://www.trulens.org/
-✅ Features
-Feedback functions
-Hallucination detection
-Observability dashboard
-💻 Code Example
-from trulens_eval import Tru
-from trulens_eval.feedback import Feedback
-
-tru = Tru()
-
-f_relevance = Feedback.openai_relevance()
-
-# attach to your pipeline
-🥉 DeepEval
-GitHub: https://github.com/confident-ai/deepeval
-💻 Code Example
-from deepeval.metrics import AnswerRelevancyMetric
-from deepeval.test_case import LLMTestCase
-
-metric = AnswerRelevancyMetric()
-
-test_case = LLMTestCase(
-    input="What is AI?",
-    actual_output="AI is artificial intelligence"
-)
-
-metric.measure(test_case)
-print(metric.score)
-🧰 3. RAG Frameworks
-LangChain
-https://github.com/langchain-ai/langchain
-LlamaIndex
-https://github.com/jerryjliu/llama_index
-💻 Example: Simple RAG (LlamaIndex)
-from llama_index.core import VectorStoreIndex
-from llama_index.core import SimpleDirectoryReader
-
-docs = SimpleDirectoryReader("./data").load_data()
-
-index = VectorStoreIndex.from_documents(docs)
-query_engine = index.as_query_engine()
-
-response = query_engine.query("What is AI?")
-print(response)
-🗄️ 4. Vector Databases
-Tool	Type	Link
-FAISS	Local	https://github.com/facebookresearch/faiss
-
-Chroma	Open source	https://github.com/chroma-core/chroma
-
-Weaviate	Hybrid	https://github.com/weaviate/weaviate
-
-Pinecone	SaaS	https://www.pinecone.io
-💻 Example: FAISS
-from langchain.vectorstores import FAISS
-from langchain.embeddings import OpenAIEmbeddings
-
-db = FAISS.from_texts(
-    ["AI is cool", "ML is subset of AI"],
-    OpenAIEmbeddings()
-)
-
-docs = db.similarity_search("What is AI?")
-print(docs)
-🧪 5. End-to-End RAG Evaluation Pipeline
-Dataset → Retrieval Eval → Generation Eval → LLM Judge → Dashboard
-⚠️ Common Pitfalls
-❌ Evaluating only LLM output (ignore retrieval)
-❌ No ground truth dataset
-❌ Using BLEU/ROUGE for RAG (not ideal)
-❌ No hallucination detection
+def precision_at_k(relevant, retrieved, k):
+    retrieved_k = retrieved[:k]
+    return len(set(relevant) & set(retrieved_k)) / k
+```
 
 ---
 
+## 🔹 Recall@K
+
+Measures how many relevant items are retrieved.
+
+```
+Recall@K = (Relevant items in top K) / (Total relevant items)
+```
+
+```python
+def recall_at_k(relevant, retrieved, k):
+    retrieved_k = retrieved[:k]
+    return len(set(relevant) & set(retrieved_k)) / len(relevant)
+```
+
+---
+
+## 🔹 F1 Score
+
+Balances precision and recall.
+
+```
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
+```
+
+```python
+def f1_score(p, r):
+    return 2 * (p * r) / (p + r + 1e-8)
+```
+
+---
+
+## 🔹 Mean Reciprocal Rank (MRR)
+
+Measures ranking quality.
+
+```
+MRR = 1 / rank of first relevant item
+```
+
+```python
+def mrr(relevant, retrieved):
+    for i, item in enumerate(retrieved):
+        if item in relevant:
+            return 1 / (i + 1)
+    return 0
+```
+
+---
+
+## 🔹 Normalized Discounted Cumulative Gain (nDCG)
+
+Measures ranking quality with position importance.
+
+```
+nDCG = DCG / IDCG
+```
+
+```python
+import numpy as np
+
+def dcg(scores):
+    return sum(score / np.log2(i + 2) for i, score in enumerate(scores))
+
+def ndcg(scores):
+    ideal = sorted(scores, reverse=True)
+    return dcg(scores) / dcg(ideal)
+```
+
+---
+
+# 📚 Libraries for Evaluation
+
+## 🔹 1. Hugging Face Evaluate
+
+👉 https://github.com/huggingface/evaluate
+
+```python
+import evaluate
+
+metric = evaluate.load("accuracy")
+metric.compute(predictions=[1,0,1], references=[1,1,1])
+```
+
+---
+
+## 🔹 2. Scikit-learn
+
+👉 https://scikit-learn.org/
+
+```python
+from sklearn.metrics import precision_score
+
+precision_score([1,0,1], [1,1,1])
+```
+
+---
+
+## 🔹 3. NumPy / Custom
+
+Useful for custom metrics and experimentation.
+
+---
+
+# 🧠 Key Insight
+
+Evaluation is not one-size-fits-all:
+
+```
+RAG → retrieval + generation
+Summarization → semantic + compression
+Translation → linguistic accuracy
+Agents → reasoning + correctness
+```
+
+---
+
+# 🏁 Summary
+
+- Precision / Recall → retrieval quality  
+- MRR / nDCG → ranking quality  
+- F1 → balance metric  
+- Libraries → automate evaluation  
+
+---
