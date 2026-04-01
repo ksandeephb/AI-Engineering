@@ -4,7 +4,7 @@ A comprehensive, production-ready guide to designing, building, and scaling Gene
 
 ## 👤 Author
 **Sandeep Kumar**<br>
-AI Architect & Engineering Manager<br>
+AI Architect &  Manager<br>
 📧 ksandeep.srm@gmail.com<br>
 https://www.linkedin.com/in/sandeep-kumar-23b02445/
 
@@ -133,7 +133,7 @@ Give a star ⭐ and share!
 ## 👤 Author
 
 **Sandeep Kumar**<br>
-AI Architect & Engineering Manager<br>
+AI Architect &  Manager<br>
 📧 ksandeep.srm@gmail.com<br>
 https://www.linkedin.com/in/sandeep-kumar-23b02445/
 
